@@ -1,88 +1,82 @@
 <!doctype html>
 <html>
 <head>
-    <title>Document</title>
-    <style>
-        .question {
-            position: absolute;
-            margin: auto;
-            top: 0;
-            right: 0;
-            bottom: 0;
-            left: 0;
-            width: 400px;
-            height: 150px;
-            padding: 30px;
-            border: 1px solid black;
-            border-radius: 3px;
-        }
-    </style>
+<title>Document</title>
+<style>
+	.question, #results{
+		display:none;
+	}
+	#q1{
+		display: block;
+	}
+</style>
 </head>
 <body>
-    <div class="question" value="Name">
-        <h1>Batman's first name is?</h1>
-        <label><input type="radio" name="q1" value="Bruce"> Bruce</label>
-        <label><input type="radio" name="q1" value="Mark"> Mark</label>
-        <label><input type="radio" name="q1" value="Steven"> Steven</label>
-        <br>
-        <button>Next</button>
-    </div>
-    <div class="question" style="display: none;">
-        <h1>Spiderman lives in:</h1>
-        <label><input type="radio" name="q2" value="New Jersey"> New Jersey</label>
-        <label><input type="radio" name="q2" value="New York"> New York</label>
-        <label><input type="radio" name="q2" value="Boston"> Boston</label>
-        <br>
-        <button>Next</button>
-    </div>
-    <div class="question" style="display: none;">
-        <h1>How many claws does Wolverine have?</h1>
-        <label><input type="radio" name="q3" value="2"> 2</label>
-        <label><input type="radio" name="q3" value="4"> 4</label>
-        <label><input type="radio" name="q3" value="6"> 6</label>
-        <br>
-        <button>Finish</button>
-    </div>
-    <div class="question" style="display: none;">
-        <h1>You Scored:</h1>
-        <button>Click</button>
-    </div>
+		<div id="q1" class="question">
+			<h1>Batman's first name is?</h1>
+			<label><input type="radio" name="q1" value="Bruce"> Bruce</label>
+			<label><input type="radio" name="q1" value="Mark"> Mark</label>
+			<label><input type="radio" name="q1" value="Steven"> Steven</label>
+			<br>
+			<button class="next">Next</button>
+		</div>
+		<div id="q2" class="question">
+			<h1>Spiderman lives in:</h1>
+			<label><input type="radio" name="q2" value="New Jersey"> New Jersey</label>
+			<label><input type="radio" name="q2" value="New York"> New York</label>
+			<label><input type="radio" name="q2" value="Boston"> Boston</label>
+			<br>
+			<button class="next">Next</button>
+		</div>
+		<div id="q3" class="question">
+			<h1>How many claws does Wolverine have?</h1>
+			<label><input type="radio" name="q3" value="2"> 2</label>
+			<label><input type="radio" name="q3" value="4"> 4</label>
+			<label><input type="radio" name="q3" value="6"> 6</label>
+			<br>
+			<button  class="next" id="finish">Finish</button>
+		</div>
+		<div id="results">
+			<h1>You Scored:</h1>
+			<h1 id="score"></h1>
+		</div>
+	<script>
+		a1 = "Bruce";
+		a2 = "New York";
+		a3 = "6";
+		
+		nxtbtn = document.getElementsByClassName('next');
+		for(i in nxtbtn){
+			nxtbtn[i].onclick = function(){
+				this.parentElement.style.display = "none";
+				this.parentElement.nextElementSibling.style.display = "block";
+			};
+		};
+
+		document.getElementById('finish').onclick = function(){
+			this.parentElement.style.display = "none";
+			this.parentElement.nextElementSibling.style.display = "block";
+			r1 = document.querySelector('input[name="q1"]:checked').value;
+			r2 = document.querySelector('input[name="q2"]:checked').value;
+			r3 = document.querySelector('input[name="q3"]:checked').value;
+			score = 0;
+			if (r1 == a1){
+				++score;
+			}
+			if (r2 == a2){
+				++score;
+			}
+			if (r3 == a3){
+				++score;
+			}
+			console.log(score);
+			questioncount = document.getElementsByClassName('question').length;
+			score = (score/questioncount) * 100;
+			score = score.toFixed(0) + "%";
+			console.log(score);
+			document.getElementById("score").innerHTML = score;
+		};
+		
+	</script>
 </body>
 </html>
-    <script>
-        var one = "Bruce";
-        var two = "New York";
-        var three = "6";
-        var score = 0;
-
-        var button = document.getElementsByTagName('button');
-        for (i = 0; i < button.length; i++) {
-            button[i].onclick = function() {
-                this.parentElement.style.display = 'none';
-                this.parentElement.nextElementSibling.style.display = 'block';
-                totalScore();
-            };
-        }
-
-        function totalScore() {
-            var first = document.querySelector('input[name="q1"]:checked').value;
-            if (first == one) {
-                console.log('True')
-            }
-            else{
-                console.log('False')
-            }
-            var second = document.querySelector('input[name="q2"]:checked').value;
-            if (second == two) {
-                console.log('True')
-            } else {
-                console.log('False')
-            }
-            var third = document.querySelector('input[name="q3"]:checked').value;
-            if (third == three) {
-                console.log('True')
-            } else {
-                console.log('False')
-            }
-        }
-    </script>
